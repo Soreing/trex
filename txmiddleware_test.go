@@ -31,7 +31,7 @@ func (f *MockTxFactory) Generate(
 	}
 }
 
-func TestTCtxMiddleware(t *testing.T) {
+func TestTxContextMiddleware(t *testing.T) {
 	cases := []struct {
 		name    string // Test case name
 		trcprnt string // Header value of traceparent
@@ -72,7 +72,7 @@ func TestTCtxMiddleware(t *testing.T) {
 			ctx.Request = req
 
 			factory := &MockTxFactory{c.txfFail}
-			sut := TCtxMiddleware(factory)
+			sut := TxContextMiddleware(factory)
 
 			// Act
 			sut(ctx)

@@ -10,7 +10,7 @@ import (
 // Injects a transaction context dependency into the gin context
 // The transaction context should contain traced dependencies
 // such as dbs and https clients
-func TCtxMiddleware(factory TxFactory) gin.HandlerFunc {
+func TxContextMiddleware(factory TxFactory) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// Get and decode the traceparent header into smaller values
 		trcprnt := c.GetHeader("traceparent")
