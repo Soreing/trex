@@ -26,6 +26,7 @@ func TxContextMiddleware(factory TxFactory) gin.HandlerFunc {
 				)
 				return
 			}
+			pid = tid
 		}
 
 		// Generate a new resource id
