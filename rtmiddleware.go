@@ -4,10 +4,11 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"golang.org/x/net/context"
 )
 
 type ReqTrFunc func(
-	context interface{},
+	context context.Context,
 	method string,
 	path string,
 	query string,
@@ -25,7 +26,6 @@ type ReqTrFunc func(
 // The function is called with a transaction context of interface{} type
 func RequestTracerMiddleware(trf ReqTrFunc) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		txc := c.MustGet("tx-context")
 
 		method := c.Request.Method
 		path := c.Request.URL.Path
@@ -40,6 +40,6 @@ func RequestTracerMiddleware(trf ReqTrFunc) gin.HandlerFunc {
 		status := c.Writer.Status()
 		size := c.Writer.Size()
 
-		trf(txc, method, path, query, agent, ip, status, size, start, end)
+		trf(c, method, path, query, agent, ip, status, size, start, end)
 	}
 }
